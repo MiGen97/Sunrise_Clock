@@ -2,7 +2,7 @@
 #include <DS3231.h>
 #include <Ticker.h>
 
-#define SUNRISE_DURATION 1
+#define SUNRISE_DURATION 30       //the number of minutes from which the sunrise start earlier than the alarm
 
 //The types of alarm
 //#define ES      DS3231_EVERY_SECOND
@@ -51,12 +51,10 @@ void initializeRTC() {
   ///////////////////////////////////////////////////////////
 
   //set the user alarm
-  rtc.armAlarm1(false);
   rtc.clearAlarm1();
   rtc.enableOutput(false);
 
   //set the LEDs alarm
-  rtc.armAlarm2(false);
   rtc.clearAlarm2();
 
   //set the interupt pin for alarms
@@ -65,6 +63,7 @@ void initializeRTC() {
 
   temperature = rtc.readTemperature();
   temperature_interrupt.attach(60, temperatureRead);
+  
   return;
 }
 
@@ -118,4 +117,14 @@ void setAlarm(bool arm = true, byte hour = 5, byte minute = 0, bool sunrise_sim 
     rtc.armAlarm1(false);
     rtc.clearAlarm1();
   }
+}
+
+//function for getting the alarm from RTC (backup after a power surge)
+void getAlarm(){
+  RTCAlarmTime alarm1=rtc.getAlarm1();
+  alarm_hour=alarm1.hour;
+  alarm_minute=alarm1.minute;
+  alarm_set=rtc.isArmed1();
+  alarm_sunrise=rtc.isArmed2();
+  return;
 }

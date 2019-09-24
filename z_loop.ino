@@ -1,6 +1,8 @@
 void loop() {
   // put your main code here, to run repeatedly:
-
+  
+  loopOTA();
+  
   switch (state_menu) {
     case CLOCK_MENU: {
         switch (inner_menu) {
