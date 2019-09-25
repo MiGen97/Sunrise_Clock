@@ -3,12 +3,14 @@ void checkInput() {
   switch (input) {
     case BUTTON_PRESSED: {
         //action if button is pressed
+        lcdBacklight();
         handleMainAndInnerMenuButton();
         input = NONE;
         break;
       }
     case LEFT_AXIS: {
         //action if joystick is on the left side
+        lcdBacklight();
         if (inner_menu == NO_INNER) {
           handleMainMenuAxis(true);
         } else {
@@ -20,6 +22,7 @@ void checkInput() {
       }
     case RIGHT_AXIS: {
         //action if joystick is on the right side
+        lcdBacklight();
         if (inner_menu == NO_INNER) {
           handleMainMenuAxis(false);
         } else {

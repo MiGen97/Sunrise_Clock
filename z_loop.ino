@@ -64,7 +64,8 @@ void loop() {
       }
     case ALARM_ON_MENU:{
       displayAlarm("Alarm ON:");
-      delay(1000);
+      lcdBacklight();
+      delay(100);
       break;
     }
   }
