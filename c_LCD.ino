@@ -1,5 +1,6 @@
 #include <LiquidCrystal_I2C.h>
 
+Ticker backlight_interrupt;
 LiquidCrystal_I2C lcd(0x3F,16,2);
 
 uint8_t bell[8]  = {0x4,0xe,0xe,0xe,0x1f,0x0,0x4};
@@ -11,11 +12,23 @@ uint8_t sunrise2[8] = {0x0C,0x09,0x0A,0x00,0x1D,0x1E,0x1F,0x1F};
 uint8_t retarrow[8] = {0x1,0x1,0x5,0x9,0x1f,0x8,0x4};
 uint8_t arrow[8] = {0x10,0x10,0x10,0x14,0x12,0x1F,0x02,0x04};
 
+void backlightInterrupt(){
+  lcd.noBacklight();
+  backlight_interrupt.detach();
+}
+
 void initializeLCD(){
   lcd.init();
   lcd.clear();
-  lcd.backlight();
+  lcdBacklight();
   lcd.home();
+}
+
+void lcdBacklight(){
+  lcd.backlight();
+  delay(100);
+  backlight_interrupt.detach();
+  backlight_interrupt.attach(5,backlightInterrupt);
 }
 
 void displayString(char* string){
