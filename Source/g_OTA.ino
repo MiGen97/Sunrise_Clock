@@ -3,8 +3,8 @@
 #include <WiFiUdp.h>
 #include <ArduinoOTA.h>
 
-const char* ssid = "RNT-Cosmin";
-const char* password = "rares2016";
+const char* ssid = "Your_SSID";
+const char* password = "Your_Password";
 
 
 void initializeOTA(){
