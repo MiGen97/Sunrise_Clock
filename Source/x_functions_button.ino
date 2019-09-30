@@ -47,6 +47,20 @@ void handleMainAndInnerMenuButton() {
         break;
       }
     case LEDS_MENU: {
+        switch (inner_menu) {
+          case NO_INNER: {
+              nextState(inner_menu);
+              break;
+            }
+          case LEDS_BEDLIGHT: {
+              initialState(inner_menu);
+              if(bed_light)
+                setLEDsBedLight();
+              else
+                setLEDsRGB(0,0,0);
+              break;
+            }
+        }
         break;
       }
     case ALARM_ON_MENU:{
