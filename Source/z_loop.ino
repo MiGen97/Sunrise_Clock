@@ -59,7 +59,21 @@ void loop() {
         break;
       }
     case LEDS_MENU: {
-        displayString("LEDS_menu!");
+         switch (inner_menu) {
+          case NO_INNER:{
+            displayString("LEDS_menu!");
+            break;
+          }
+          case LEDS_BEDLIGHT: {
+             displayString("LEDs Bed Lights");
+             if(bed_light){
+                displayString("YES",1,6);
+              }else{
+                displayString("NO ",1,6);
+              }
+             break;
+          }
+        }
         break;
       }
     case ALARM_ON_MENU:{

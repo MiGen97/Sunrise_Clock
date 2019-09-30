@@ -74,6 +74,12 @@ void handleInnerMenuAxis(bool left_axis) {
         break;
       }
     case LEDS_MENU: {
+         switch (inner_menu) {
+            case LEDS_BEDLIGHT: {
+              bed_light=!bed_light;
+              break;
+            }
+         }
         break;
       }
     case ALARM_ON_MENU: {

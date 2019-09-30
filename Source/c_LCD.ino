@@ -19,8 +19,6 @@ void backlightInterrupt(){
 
 void initializeLCD(){
   lcd.init();
-  lcd.clear();
-  lcdBacklight();
   lcd.home();
 }
 
