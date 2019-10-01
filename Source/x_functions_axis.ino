@@ -79,6 +79,15 @@ void handleInnerMenuAxis(bool left_axis) {
               bed_light=!bed_light;
               break;
             }
+            case LEDS_COLORS: {
+              if (left_axis) {
+                hue_value-=5;
+              }else{
+                hue_value+=5;
+              }
+              setLEDsHUE(hue_value,255,255);
+              break;
+            }
          }
         break;
       }

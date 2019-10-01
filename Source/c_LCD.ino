@@ -45,7 +45,7 @@ void displayByte(byte number,byte row,byte column){
 }
 
 void displayString(char* string,byte row,byte column){
-lcd.setCursor(column,row);
+  lcd.setCursor(column,row);
   lcd.print(string);
 }
 
@@ -115,6 +115,11 @@ void createCharacters(){
 }
 
 void printCharacter(byte i){
+  lcd.write(i);
+}
+
+void printCharacter(byte i,byte row,byte column){
+  lcd.setCursor(column,row);
   lcd.write(i);
 }
 

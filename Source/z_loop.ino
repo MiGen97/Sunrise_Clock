@@ -1,7 +1,7 @@
 void loop() {
   // put your main code here, to run repeatedly:
   
-  loopOTA();
+  //loopOTA();
   
   switch (state_menu) {
     case CLOCK_MENU: {
@@ -72,6 +72,13 @@ void loop() {
                 displayString("NO ",1,6);
               }
              break;
+          }
+          case LEDS_COLORS: {
+            displayString("Colored LEDs");
+            printCharacter(7,1,3);
+            displayString("Change",1,4);
+            printCharacter(6,1,10);
+            break;
           }
         }
         break;
