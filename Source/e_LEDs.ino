@@ -13,6 +13,7 @@
 CRGB leds[NUM_LEDS];
 
 bool bed_light=false;
+int hue_value=0;
 
 void initializeLeds(){
    delay(3000);
@@ -40,7 +41,7 @@ void setLEDsRGB(byte red,byte green,byte blue){
 //function for setting the LEDs with HUE encoding
 void setLEDsHUE(byte hue,byte saturation=255,byte value=255){
   for(int led = 0; led < NUM_LEDS; led = led + 1) {
-     //set all leds with preseted RGB
+     //set all leds with preseted HSV
      leds[led] = CHSV(hue,saturation,value);
   }
   FastLED.show();

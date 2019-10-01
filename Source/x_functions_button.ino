@@ -53,13 +53,20 @@ void handleMainAndInnerMenuButton() {
               break;
             }
           case LEDS_BEDLIGHT: {
-              initialState(inner_menu);
-              if(bed_light)
+              if(bed_light){
                 setLEDsBedLight();
-              else
+                initialState(inner_menu);
+              }else{
                 setLEDsRGB(0,0,0);
+                nextState(inner_menu);
+              }
               break;
             }
+          case LEDS_COLORS:{
+            setLEDsRGB(0,0,0);
+            initialState(inner_menu);
+            break;
+          }
         }
         break;
       }
