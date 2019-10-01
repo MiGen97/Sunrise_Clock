@@ -59,3 +59,14 @@ void progressSunrise() {
     sunrise();
   }
 }
+
+void progressRainbow() {
+  if (rainbow_light) {
+    if (rainbow_update) {
+      rainbow_update=false;
+      setLEDsRainbow();
+    }else{
+      rainbow_update=true;
+    }
+  }
+}

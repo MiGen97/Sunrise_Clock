@@ -1,7 +1,7 @@
 #import <FastLED.h>
 
 #define NUM_LEDS    6
-#define BRIGHTNESS  64
+#define BRIGHTNESS  128
 #define LED_TYPE    WS2811
 #define COLOR_ORDER RBG
 
@@ -13,7 +13,11 @@
 CRGB leds[NUM_LEDS];
 
 bool bed_light=false;
+bool rainbow_light=false;
+bool rainbow_update=false;
+
 int hue_value=0;
+byte num_leds_rainbow=NUM_LEDS/2;
 
 void initializeLeds(){
    delay(3000);
@@ -52,6 +56,18 @@ void setLEDsBedLight(){
      //set all leds with preseted RGB
      FastLED.setBrightness(BED_LIGHT_BRIGHTNESS);
      leds[led] = CRGB(BED_LIGHT_RED,BED_LIGHT_GREEN,BED_LIGHT_BLUE);
+  }
+  FastLED.show();
+}
+
+void setLEDsRainbow(){
+  static uint8_t startIndex = 0;
+  startIndex = startIndex + 1;
+  uint8_t colorIndex=startIndex;
+  for( int i = 0; i < num_leds_rainbow; i++) {
+    leds[i] = ColorFromPalette( RainbowColors_p, colorIndex, BRIGHTNESS, LINEARBLEND);
+    leds[i+num_leds_rainbow] = ColorFromPalette( RainbowColors_p, colorIndex, BRIGHTNESS, LINEARBLEND);
+    colorIndex += 3;
   }
   FastLED.show();
 }

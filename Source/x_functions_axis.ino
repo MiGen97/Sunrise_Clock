@@ -88,6 +88,10 @@ void handleInnerMenuAxis(bool left_axis) {
               setLEDsHUE(hue_value,255,255);
               break;
             }
+            case LEDS_RAINBOW: {
+              rainbow_light=!rainbow_light;
+              break;
+            }
          }
         break;
       }
