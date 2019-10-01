@@ -80,6 +80,15 @@ void loop() {
             printCharacter(6,1,10);
             break;
           }
+          case LEDS_RAINBOW: {
+            displayString("Rainbow LEDs");
+            if(rainbow_light){
+                displayString("YES",1,6);
+              }else{
+                displayString("NO ",1,6);
+              }
+            break;
+          }
         }
         break;
       }
@@ -94,7 +103,8 @@ void loop() {
   checkInput();
   checkAlarms();
   progressSunrise();
+  progressRainbow();
   //dateToString(&timeString,&dateString,timeSeparator,dateSeparator);
   //displayDateTime(timeString,dateString);
-  delay(100);
+  delay(10);
 }
