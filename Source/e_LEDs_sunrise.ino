@@ -11,13 +11,13 @@
 #define FINISH        9
 #define WAIT_BUTTON   10
 
-#define SUNRISE_STEP_DURATION ((float)SUNRISE_DURATION)/600
 Ticker sunrise_next;
 
 bool sunrise_sim=false;      //variable used to see if the sunrise simulation is on (there are less than 30 minutes until the alarm goes on
 bool sunrise_progress=false; //variable used to see in the main loop that the sunrise can progress (5 seconds have passed since the last progress)
 
 //Sunrise simulation variables
+float SUNRISE_STEP_DURATION=((float)SUNRISE_DURATION)/380;
 byte brightness=0;
 byte red=255;
 byte green=0;
@@ -86,7 +86,10 @@ void sunrise(void){
       case YELLOW_WHITE:
       {
         if(blue>50)  sunrise_state=WHITE_BRIGHT;
-        else         blue++;
+        else{
+          blue++;
+          red-=2;
+        }
         break;
       }
       case WHITE_BRIGHT:
@@ -101,6 +104,7 @@ void sunrise(void){
         else{
           green++;
           blue+=2;
+          red-=2;
         }
         break;
       }
