@@ -64,6 +64,7 @@ void handleMainAndInnerMenuButton() {
             }
           case LEDS_COLORS:{
             setLEDsRGB(0,0,0);
+            rainbow_light=false;
             nextState(inner_menu);
             break;
           }
