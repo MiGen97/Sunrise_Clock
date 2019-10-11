@@ -64,12 +64,12 @@ void handleMainAndInnerMenuButton() {
             }
           case LEDS_COLORS:{
             setLEDsRGB(0,0,0);
-            rainbow_light=false;
             nextState(inner_menu);
             break;
           }
           case LEDS_RAINBOW:{
             setLEDsRGB(0,0,0);
+            rainbow_light=false;
             initialState(inner_menu);
             break;
           }
