@@ -3,6 +3,8 @@
 Ticker backlight_interrupt;
 LiquidCrystal_I2C lcd(0x3F,16,2);
 
+bool isBacklight=false;
+
 uint8_t bell[8]  = {0x4,0xe,0xe,0xe,0x1f,0x0,0x4};
 uint8_t note[8]  = {0x2,0x3,0x2,0xe,0x1e,0xc,0x0};
 uint8_t clocks[8] = {0x0,0xe,0x15,0x17,0x11,0xe,0x0};
@@ -14,18 +16,21 @@ uint8_t arrow[8] = {0x10,0x10,0x10,0x14,0x12,0x1F,0x02,0x04};
 
 void backlightInterrupt(){
   lcd.noBacklight();
+  isBacklight=false;
   backlight_interrupt.detach();
 }
 
 void initializeLCD(){
   lcd.init();
   lcd.home();
+  lcdBacklight();
 }
 
 void lcdBacklight(){
   lcd.backlight();
+  isBacklight=true;
   delay(100);
-  backlight_interrupt.detach();
+  //backlight_interrupt.detach();
   backlight_interrupt.attach(5,backlightInterrupt);
 }
 
