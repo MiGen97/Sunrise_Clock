@@ -1,10 +1,4 @@
-//String timeString="";
-//String dateString="";
-//String timeSeparator=":";
-//String dateSeparator="/";
-
 char* dt_format="d.m.y H:i:s";
-//char* lines=(char*)calloc(sizeof(char),33);
 
 #define CLOCK_MENU        0
 #define ALARM_MENU        1

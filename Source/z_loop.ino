@@ -7,7 +7,10 @@ void loop() {
     case CLOCK_MENU: {
         switch (inner_menu) {
           case NO_INNER:{
-            displayDateTime(getDateTime(dt_format),alarm_set,alarm_sunrise);
+            if(passed_second) {
+              displayDateTime(getDateTime(dt_format),alarm_set,alarm_sunrise);
+              passed_second=false;
+            }
             break;
           }
           case CLOCK_INNER_MENU: {
@@ -104,7 +107,5 @@ void loop() {
   checkAlarms();
   progressSunrise();
   progressRainbow();
-  //dateToString(&timeString,&dateString,timeSeparator,dateSeparator);
-  //displayDateTime(timeString,dateString);
   delay(200);
 }
