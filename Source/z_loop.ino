@@ -106,5 +106,5 @@ void loop() {
   progressRainbow();
   //dateToString(&timeString,&dateString,timeSeparator,dateSeparator);
   //displayDateTime(timeString,dateString);
-  delay(10);
+  delay(200);
 }
