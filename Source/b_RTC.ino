@@ -4,22 +4,14 @@
 
 #define SUNRISE_DURATION 30       //the number of minutes from which the sunrise start earlier than the alarm
 
-//The types of alarm
-//#define ES      DS3231_EVERY_SECOND
-//#define MS      DS3231_MATCH_S
-//#define MMS     DS3231_MATCH_M_S
-//#define MHMS    DS3231_MATCH_H_M_S
-//#define MDTHMS  DS3231_MATCH_DT_H_M_S
-//#define MDYHMS  DS3231_MATCH_DY_H_M_S
-
-
 DS3231 rtc;
 RTCDateTime dt;
 bool is_alarm = false;
+bool passed_second=false;
 
 float temperature = 0;
 Ticker temperature_interrupt;
-
+Ticker clock_second_interrupt;
 
 //function to handle the interrupt
 ICACHE_RAM_ATTR void handleInterruptRTC() {
@@ -30,6 +22,10 @@ float getTemperature();
 
 void temperatureRead() {
   temperature = getTemperature();
+}
+
+void secondPassedInterrupt(){
+  passed_second=true;
 }
 
 //function to initialize the RTC and the alarm
@@ -63,16 +59,11 @@ void initializeRTC() {
 
   temperature = rtc.readTemperature();
   temperature_interrupt.attach(60, temperatureRead);
-  
+
+
+  clock_second_interrupt.attach(1, secondPassedInterrupt);
   return;
 }
-
-//convert the RTCDateTime to String, to be used by displayLCD() function
-//void dateToString(String *timeS,String *dateS,String timeSeparator,String dateSeparator){
-//  dt=rtc.getDateTime();
-//  *timeS=String.format(dt.hour)+timeSeparator+String(dt.minute)+timeSeparator+String(dt.second);
-//  *dateS=String(dt.day)+dateSeparator+String(dt.month)+dateSeparator+String(dt.year);
-//}
 
 //function to take the time from RTC
 char* getDateTime(const char* dtFormat) {
@@ -98,12 +89,6 @@ void handleAlarm(bool alarm2) {
 //function for setting the alarm
 void setAlarm(bool arm = true, byte hour = 5, byte minute = 0, bool sunrise_sim = false) {
   if (arm) {
-
-    /////////////TO DO/////////////////////////////////////////////
-    //set the second alarm to trigger 30 minutes earlier than the first one
-    //and that alarm to start the sunrise routine
-    ///////////////////////////////////////////////////////////////
-
     rtc.setAlarm1(0, hour, minute, 0, DS3231_MATCH_H_M_S);
 
     //set alarm for LEDs with SUNRISE_DURATION minutes earlier than the alarm for user
