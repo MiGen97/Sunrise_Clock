@@ -1,12 +1,14 @@
-#define ANALOG_LEFT         100
-#define ANALOG_RIGHT        900
-#define ANALOG_READ_TIME    50
-#define ANALOG_READ_PAUSE   500
+#define ANALOG_LEFT               100
+#define ANALOG_RIGHT              900
+#define ANALOG_READ_TIME          50
+#define ANALOG_READ_PAUSE         500
+#define ANALOG_READ_PAUSE_SHORT   100
 
 Ticker analog_interrupt;
 Ticker pause_analog_interrupt;
 
-int analog_value=0;          //the value readed from joystick input
+int analog_value=0;           //the value readed from joystick input
+byte counter_input=0;      //counter for indicating the fact that the user holds the left or right input --- used to increase the speed on analog read input --- faster user interaction
 
 enum in{NONE,LEFT_AXIS,RIGHT_AXIS,BUTTON_PRESSED};
 in input=NONE;                //what input type we have
@@ -26,6 +28,8 @@ void analogInterrupt(){
   }else{
     if(analog_value>ANALOG_RIGHT){
       input=RIGHT_AXIS;
+    }else{
+      counter_input=0;
     }
   }
 }
@@ -46,6 +50,12 @@ void initializeJoystick()
 }
 
 void pauseAnalogRead(){
-  pause_analog_interrupt.attach_ms(ANALOG_READ_PAUSE,pauseAnalogInterrupt);
+  if(counter_input<2) {
+    pause_analog_interrupt.attach_ms(ANALOG_READ_PAUSE,pauseAnalogInterrupt);
+    counter_input++;
+  }else {
+    pause_analog_interrupt.attach_ms(ANALOG_READ_PAUSE_SHORT,pauseAnalogInterrupt);
+  }
   analog_interrupt.detach();
+  
 }
