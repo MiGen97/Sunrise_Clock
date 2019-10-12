@@ -1,6 +1,7 @@
 //function for selecting what input was given by the user
 void checkInput() {
   if (input != NONE) {
+
     if (is_Backlight) {
       switch (input) {
         case BUTTON_PRESSED: {
