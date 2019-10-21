@@ -17,6 +17,7 @@ uint8_t arrow[8] = {0x10,0x10,0x10,0x14,0x12,0x1F,0x02,0x04};
 void backlightInterrupt(){
   lcd.noBacklight();
   is_Backlight=false;
+  lcd.clear();
   backlight_interrupt.detach();
 }
 
@@ -29,7 +30,6 @@ void initializeLCD(){
 void lcdBacklight(){
   lcd.backlight();
   is_Backlight=true;
-  delay(100);
   backlight_interrupt.attach(5,backlightInterrupt);
 }
 
