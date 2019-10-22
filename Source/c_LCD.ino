@@ -30,6 +30,7 @@ void initializeLCD(){
 void lcdBacklight(){
   lcd.backlight();
   is_Backlight=true;
+  delay(100);
   backlight_interrupt.attach(5,backlightInterrupt);
 }
 
