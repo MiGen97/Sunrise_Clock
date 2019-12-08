@@ -7,7 +7,7 @@
 DS3231 rtc;
 RTCDateTime dt;
 bool is_alarm = false;
-bool passed_second=false;
+bool passed_second = false;
 
 float temperature = 0;
 Ticker temperature_interrupt;
@@ -24,8 +24,8 @@ void temperatureRead() {
   temperature = getTemperature();
 }
 
-void secondPassedInterrupt(){
-  passed_second=true;
+void secondPassedInterrupt() {
+  passed_second = true;
 }
 
 //function to initialize the RTC and the alarm
@@ -38,12 +38,7 @@ void initializeRTC() {
   //get the date and time from serial (pc time)
   //or in the last scenario let the user to input the date and time
   dt = rtc.getDateTime();
-  if (dt.year < 2019) {
-    Serial.begin(115200);
-    delay(10);
-    rtc.setDateTime(__DATE__, __TIME__);
-    Serial.end();
-  }
+  //updateTime();
   ///////////////////////////////////////////////////////////
 
   //set the user alarm
@@ -63,6 +58,13 @@ void initializeRTC() {
 
   clock_second_interrupt.attach(1, secondPassedInterrupt);
   return;
+}
+
+void updateTime() {
+  Serial.begin(115200);
+  delay(10);
+  rtc.setDateTime(__DATE__, __TIME__);
+  Serial.end();
 }
 
 //function to take the time from RTC
@@ -105,11 +107,11 @@ void setAlarm(bool arm = true, byte hour = 5, byte minute = 0, bool sunrise_sim 
 }
 
 //function for getting the alarm from RTC (backup after a power surge)
-void getAlarm(){
-  RTCAlarmTime alarm1=rtc.getAlarm1();
-  alarm_hour=alarm1.hour;
-  alarm_minute=alarm1.minute;
-  alarm_set=rtc.isArmed1();
-  alarm_sunrise=rtc.isArmed2();
+void getAlarm() {
+  RTCAlarmTime alarm1 = rtc.getAlarm1();
+  alarm_hour = alarm1.hour;
+  alarm_minute = alarm1.minute;
+  alarm_set = rtc.isArmed1();
+  alarm_sunrise = rtc.isArmed2();
   return;
 }
