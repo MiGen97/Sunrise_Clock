@@ -17,7 +17,7 @@ bool sunrise_sim=false;      //variable used to see if the sunrise simulation is
 bool sunrise_progress=false; //variable used to see in the main loop that the sunrise can progress (5 seconds have passed since the last progress)
 
 //Sunrise simulation variables
-float SUNRISE_STEP_DURATION=((float)SUNRISE_DURATION)/380;
+float SUNRISE_STEP_DURATION=((float)SUNRISE_DURATION*60)/380;
 byte brightness=0;
 byte red=255;
 byte green=0;
@@ -31,6 +31,7 @@ void sunriseInterrupt(){
 void initializeSunrise(){
   sunrise_next.attach(SUNRISE_STEP_DURATION,sunriseInterrupt);
   sunrise_state=START;
+  //sunrise_progress=true;
 }
 
 //funciton for simulating the sunrise
